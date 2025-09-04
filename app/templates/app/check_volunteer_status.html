@@ -1,0 +1,150 @@
+{% extends 'app/base.html' %}
+
+{% block title %}Check Volunteer Status - Vrudhashram Kamalbasant{% endblock %}
+
+{% block content %}
+<style>
+    .volunteer-status-container {
+        max-width: 600px;
+        margin: 2rem auto;
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .status-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: #2c3e50;
+    }
+    
+    .form-group {
+        margin: 1.5rem 0;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+        color: #2c3e50;
+    }
+    
+    .status-result {
+        background: #f8f9fa;
+        padding: 2rem;
+        border-radius: 8px;
+        margin: 2rem 0;
+        border-left: 5px solid #27ae60;
+    }
+    
+    .detail-row {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .detail-label {
+        font-weight: bold;
+        color: #2c3e50;
+    }
+    
+    .status-badge {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+    }
+    
+    .status-approved {
+        background: #d4edda;
+        color: #155724;
+    }
+    
+    .status-pending {
+        background: #fff3cd;
+        color: #856404;
+    }
+    
+    .status-rejected {
+        background: #f8d7da;
+        color: #721c24;
+    }
+</style>
+
+<div class="volunteer-status-container">
+    <div class="status-header">
+        <h1>Check Volunteer Status</h1>
+        <p>Enter your volunteer ID to check your application status</p>
+    </div>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            {{ form.volunteer_id.label_tag }}
+            {{ form.volunteer_id }}
+        </div>
+        
+        <div style="text-align: center;">
+            <button type="submit" class="btn btn-success">Check Status</button>
+        </div>
+    </form>
+    
+    {% if volunteer %}
+    <div class="status-result">
+        <h3>Volunteer Details</h3>
+        
+        <div class="elder-details">
+            <div class="detail-row">
+                <span class="detail-label">Volunteer ID:</span>
+                <span>{{ volunteer.volunteer_id }}</span>
+            </div>
+            
+            <div class="detail-row">
+                <span class="detail-label">Name:</span>
+                <span>{{ volunteer.full_name }}</span>
+            </div>
+            
+            <div class="detail-row">
+                <span class="detail-label">Email:</span>
+                <span>{{ volunteer.email }}</span>
+            </div>
+            
+            <div class="detail-row">
+                <span class="detail-label">Status:</span>
+                <span class="status-badge status-{{ volunteer.status }}">{{ volunteer.get_status_display }}</span>
+            </div>
+            
+            <div class="detail-row">
+                <span class="detail-label">Applied:</span>
+                <span>{{ volunteer.created_at|date:"F d, Y" }}</span>
+            </div>
+            
+            {% if volunteer.approved_at %}
+            <div class="detail-row">
+                <span class="detail-label">Approved:</span>
+                <span>{{ volunteer.approved_at|date:"F d, Y" }}</span>
+            </div>
+            {% endif %}
+        </div>
+        
+        {% if volunteer.status == 'approved' %}
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="{% url 'volunteer_id_card' volunteer.volunteer_id %}" class="btn btn-success">Download ID Card</a>
+        </div>
+        <p style="margin-top: 1rem; color: #155724;">
+            Congratulations! You can now download your volunteer ID card.
+        </p>
+        {% elif volunteer.status == 'pending' %}
+        <p style="margin-top: 1rem; color: #856404;">
+            Your application is under review. We will notify you once it's processed.
+        </p>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends 'app/base.html' %}
+
+{% block title %}Testimonials - Vrudhashram Kamalbasant{% endblock %}
+
+{% block content %}
+<style>
+    .testimonials-header {
+        text-align: center;
+        margin: 2rem 0;
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+    }
+    
+    .testimonial-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        border-left: 5px solid #3498db;
+        transition: transform 0.3s;
+    }
+    
+    .testimonial-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .rating {
+        color: #f39c12;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .testimonial-text {
+        font-style: italic;
+        color: #555;
+        margin: 1rem 0;
+        line-height: 1.6;
+    }
+    
+    .testimonial-author {
+        font-weight: bold;
+        color: #2c3e50;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 2px solid #ecf0f1;
+    }
+    
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin: 3rem 0;
+        list-style: none;
+    }
+    
+    .pagination li {
+        margin: 0 0.5rem;
+    }
+    
+    .pagination a {
+        display: block;
+        padding: 0.75rem 1rem;
+        background: white;
+        color: #3498db;
+        text-decoration: none;
+        border-radius: 5px;
+        border: 2px solid #3498db;
+        transition: all 0.3s;
+    }
+    
+    .pagination a:hover, .pagination .current {
+        background: #3498db;
+        color: white;
+    }
+</style>
+
+<div class="testimonials-header">
+    <h1>What Our Families Say</h1>
+    <p>Read testimonials from families who have trusted us with their loved ones</p>
+</div>
+
+<div class="testimonials-grid">
+    {% for testimonial in testimonials %}
+    <div class="testimonial-card">
+        <div class="rating">
+            {% for i in "12345"|make_list %}
+                {% if forloop.counter <= testimonial.rating %}★{% else %}☆{% endif %}
+            {% endfor %}
+        </div>
+        
+        <div class="testimonial-text">
+            "{{ testimonial.comment }}"
+        </div>
+        
+        <div class="testimonial-author">
+            - {{ testimonial.name }}<br>
+            <small>{{ testimonial.relationship }}</small>
+        </div>
+    </div>
+    {% empty %}
+    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+        <p>No testimonials available at the moment.</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% if testimonials.has_other_pages %}
+<ul class="pagination">
+    {% if testimonials.has_previous %}
+        <li><a href="?page={{ testimonials.previous_page_number }}">&laquo; Previous</a></li>
+    {% endif %}
+    
+    {% for num in testimonials.paginator.page_range %}
+        {% if testimonials.number == num %}
+            <li><span class="current">{{ num }}</span></li>
+        {% else %}
+            <li><a href="?page={{ num }}">{{ num }}</a></li>
+        {% endif %}
+    {% endfor %}
+    
+    {% if testimonials.has_next %}
+        <li><a href="?page={{ testimonials.next_page_number }}">Next &raquo;</a></li>
+    {% endif %}
+</ul>
+{% endif %}
+{% endblock %}

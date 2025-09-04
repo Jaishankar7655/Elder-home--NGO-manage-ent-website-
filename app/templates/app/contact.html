@@ -1,0 +1,142 @@
+{% extends 'app/base.html' %}
+
+{% block title %}Contact Us - Vrudhashram Kamalbasant{% endblock %}
+
+{% block content %}
+<style>
+    .contact-container {
+        max-width: 1000px;
+        margin: 2rem auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+    }
+    
+    .contact-info {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .contact-form {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .info-item {
+        display: flex;
+        align-items: center;
+        margin: 1.5rem 0;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
+    
+    .info-icon {
+        font-size: 1.5rem;
+        color: #3498db;
+        margin-right: 1rem;
+        width: 30px;
+    }
+    
+    .form-group {
+        margin: 1rem 0;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+        color: #2c3e50;
+    }
+    
+    @media (max-width: 768px) {
+        .contact-container {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+    }
+</style>
+
+<div class="contact-container">
+    <div class="contact-info">
+        <h2 style="color: #2c3e50; margin-bottom: 2rem;">Get in Touch</h2>
+        
+        <div class="info-item">
+            <span class="info-icon">📍</span>
+            <div>
+                <strong>Address:</strong><br>
+                Vrudhashram Kamalbasant<br>
+                Bhopal, Madhya Pradesh
+            </div>
+        </div>
+        
+        <div class="info-item">
+            <span class="info-icon">📞</span>
+            <div>
+                <strong>Phone:</strong><br>
+                +91 XXXXXXXXXX
+            </div>
+        </div>
+        
+        <div class="info-item">
+            <span class="info-icon">✉️</span>
+            <div>
+                <strong>Email:</strong><br>
+                info@vrudhashramkamalbasant.org
+            </div>
+        </div>
+        
+        <div class="info-item">
+            <span class="info-icon">🕒</span>
+            <div>
+                <strong>Visiting Hours:</strong><br>
+                Mon-Sun: 9:00 AM - 6:00 PM
+            </div>
+        </div>
+        
+        <div style="margin-top: 2rem;">
+            <h3 style="color: #2c3e50;">How to Reach Us</h3>
+            <p>We are located in the heart of Bhopal. Public transport is easily available. For specific directions, please call us or send a message.</p>
+        </div>
+    </div>
+    
+    <div class="contact-form">
+        <h2 style="color: #2c3e50; margin-bottom: 2rem;">Send us a Message</h2>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+            </div>
+            
+            <div class="form-group">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+            </div>
+            
+            <div class="form-group">
+                {{ form.phone.label_tag }}
+                {{ form.phone }}
+            </div>
+            
+            <div class="form-group">
+                {{ form.subject.label_tag }}
+                {{ form.subject }}
+            </div>
+            
+            <div class="form-group">
+                {{ form.message.label_tag }}
+                {{ form.message }}
+            </div>
+            
+            <button type="submit" class="btn btn-success">Send Message</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

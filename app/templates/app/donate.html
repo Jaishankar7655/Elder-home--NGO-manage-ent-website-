@@ -1,0 +1,168 @@
+{% extends 'app/base.html' %}
+
+{% block title %}Donate - Vrudhashram Kamalbasant{% endblock %}
+
+{% block content %}
+<style>
+    .donate-container {
+        max-width: 1000px;
+        margin: 2rem auto;
+    }
+    
+    .donate-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .donate-header h1 {
+        color: #2c3e50;
+        margin-bottom: 1rem;
+    }
+    
+    .donation-types {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+    }
+    
+    .donation-type {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        border: 2px solid transparent;
+        transition: all 0.3s;
+    }
+    
+    .donation-type:hover {
+        border-color: #3498db;
+        transform: translateY(-5px);
+    }
+    
+    .donation-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: #3498db;
+    }
+    
+    .donate-form {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        margin: 2rem 0;
+    }
+    
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin: 1rem 0;
+    }
+    
+    .form-group {
+        margin: 1rem 0;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+        color: #2c3e50;
+    }
+    
+    @media (max-width: 768px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="donate-container">
+    <div class="donate-header">
+        <h1>Make a Difference Through Your Donation</h1>
+        <p>Your generosity helps us provide better care and facilities for our elderly residents</p>
+    </div>
+    
+    <div class="donation-types">
+        <div class="donation-type">
+            <div class="donation-icon">🍽️</div>
+            <h3>Food Items</h3>
+            <p>Nutritious meals and groceries</p>
+        </div>
+        
+        <div class="donation-type">
+            <div class="donation-icon">👕</div>
+            <h3>Clothing</h3>
+            <p>Clean clothes and blankets</p>
+        </div>
+        
+        <div class="donation-type">
+            <div class="donation-icon">💊</div>
+            <h3>Medicines</h3>
+            <p>Medical supplies and medicines</p>
+        </div>
+        
+        <div class="donation-type">
+            <div class="donation-icon">💰</div>
+            <h3>Money</h3>
+            <p>Financial support for operations</p>
+        </div>
+        
+        <div class="donation-type">
+            <div class="donation-icon">🎁</div>
+            <h3>Other Items</h3>
+            <p>Books, games, wheelchairs etc.</p>
+        </div>
+    </div>
+    
+    <div class="donate-form">
+        <h2 style="text-align: center; color: #2c3e50; margin-bottom: 2rem;">Donation Form</h2>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-row">
+                <div class="form-group">
+                    {{ form.donor_name.label_tag }}
+                    {{ form.donor_name }}
+                </div>
+                <div class="form-group">
+                    {{ form.donor_phone.label_tag }}
+                    {{ form.donor_phone }}
+                </div>
+            </div>
+            
+            <div class="form-group">
+                {{ form.donor_email.label_tag }}
+                {{ form.donor_email }}
+            </div>
+            
+            <div class="form-group">
+                {{ form.donation_type.label_tag }}
+                {{ form.donation_type }}
+            </div>
+            
+            <div class="form-group">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+            </div>
+            
+            <div class="form-group">
+                {{ form.message.label_tag }}
+                {{ form.message }}
+            </div>
+            
+            <div style="text-align: center; margin: 2rem 0;">
+                <button type="submit" class="btn btn-success">Submit Donation</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

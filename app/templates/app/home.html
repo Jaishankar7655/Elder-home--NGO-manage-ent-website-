@@ -1,0 +1,359 @@
+{% extends 'app/base.html' %}
+
+{% block title %}Home - Vrudhashram Kamalbasant{% endblock %}
+
+{% block content %}
+<style>
+    :root {
+        --primary: #3498db;
+        --primary-dark: #2980b9;
+        --secondary: #e74c3c;
+        --accent: #f39c12;
+        --light: #ecf0f1;
+        --dark: #2c3e50;
+        --success: #27ae60;
+        --text: #333333;
+        --text-light: #7f8c8d;
+    }
+    
+    .hero {
+        
+        text-align: center;
+        padding: 6rem 1rem;
+        margin: -20px -20px 3rem -20px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        animation: fadeInDown 1s ease;
+    }
+    
+    .hero p {
+        font-size: 1.4rem;
+        margin-bottom: 2.5rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        animation: fadeInUp 1s ease;
+    }
+    
+    .btn {
+        display: inline-block;
+        background: var(--accent);
+        color: white;
+        padding: 1rem 2.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+        animation: fadeIn 1.5s ease;
+    }
+    
+    .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(243, 156, 18, 0.4);
+        background: #e67e22;
+    }
+    
+    .stats-section {
+        padding: 4rem 0;
+        background: #f9f9f9;
+    }
+    
+    .section-title {
+        text-align: center;
+        margin-bottom: 3rem;
+        color: var(--dark);
+        position: relative;
+        padding-bottom: 1rem;
+    }
+    
+    .section-title:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--primary);
+        border-radius: 2px;
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+    
+    .stat-card {
+        background: white;
+        padding: 2.5rem 1.5rem;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .stat-card:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: var(--primary);
+        transition: width 0.3s ease;
+    }
+    
+    .stat-card:hover:before {
+        width: 100%;
+        opacity: 0.1;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+    
+    .stat-number {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+        transition: color 0.3s ease;
+    }
+    
+    .stat-card:hover .stat-number {
+        color: white;
+    }
+    
+    .stat-card div {
+        font-size: 1.1rem;
+        color: var(--text-light);
+        font-weight: 500;
+        position: relative;
+        z-index: 1;
+        transition: color 0.3s ease;
+    }
+    
+    .stat-card:hover div {
+        color: white;
+    }
+    
+    .testimonials-section {
+        padding: 5rem 0;
+        background: white;
+    }
+    
+    .testimonial-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2.5rem;
+        margin-top: 3rem;
+    }
+    
+    .testimonial-card {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        position: relative;
+        border-top: 5px solid var(--primary);
+    }
+    
+    .testimonial-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+    
+    .rating {
+        color: var(--accent);
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        letter-spacing: 2px;
+    }
+    
+    .testimonial-card p {
+        font-style: italic;
+        color: var(--text);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-left: 1.5rem;
+    }
+    
+    .testimonial-card p:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: -10px;
+        font-size: 3rem;
+        color: var(--primary);
+        opacity: 0.2;
+        font-family: Georgia, serif;
+    }
+    
+    .testimonial-author {
+        display: flex;
+        align-items: center;
+    }
+    
+    .testimonial-author strong {
+        color: var(--dark);
+        font-size: 1.1rem;
+    }
+    
+    .testimonial-author span {
+        display: block;
+        color: var(--text-light);
+        font-size: 0.9rem;
+        margin-top: 0.3rem;
+    }
+    
+    .view-all-btn {
+        text-align: center;
+        margin-top: 3rem;
+    }
+    
+    .view-all-btn .btn {
+        background: transparent;
+        color: var(--primary);
+        border: 2px solid var(--primary);
+        box-shadow: none;
+    }
+    
+    .view-all-btn .btn:hover {
+        background: var(--primary);
+        color: white;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    @keyframes fadeInUp {
+        from { 
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to { 
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes fadeInDown {
+        from { 
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to { 
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .hero h1 {
+            font-size: 2.5rem;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+        }
+        
+        .stats-grid {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .stat-number {
+            font-size: 2.8rem;
+        }
+    }
+</style>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Welcome to Vrudhashram Kamalbasant</h1>
+        <p>A sanctuary where elders are cherished, respected, and cared for with unconditional love</p>
+        <a href="{% url 'about' %}" class="btn">Discover Our Mission</a>
+    </div>
+</section>
+
+<section class="stats-section">
+    <div class="container">
+        <h2 class="section-title">Our Impact in Numbers</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">{{ total_elders }}+</div>
+                <div>Total Registrations</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ approved_elders }}+</div>
+                <div>Elders Under Care</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ active_volunteers }}+</div>
+                <div>Active Volunteers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ total_donations }}+</div>
+                <div>Total Donations</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="testimonials-section">
+    <div class="container">
+        <h2 class="section-title">Words of Appreciation</h2>
+        <div class="testimonial-grid">
+            {% for testimonial in testimonials %}
+            <div class="testimonial-card">
+                <div class="rating">
+                    {% for i in "12345"|make_list %}
+                        {% if forloop.counter <= testimonial.rating %}★{% else %}☆{% endif %}
+                    {% endfor %}
+                </div>
+                <p>{{ testimonial.comment|truncatewords:25 }}</p>
+                <div class="testimonial-author">
+                    <div>
+                        <strong>{{ testimonial.name }}</strong>
+                        <span>{{ testimonial.relationship }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="view-all-btn">
+            <a href="{% url 'testimonials' %}" class="btn">Read All Testimonials</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

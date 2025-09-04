@@ -1,0 +1,135 @@
+{% extends 'app/base.html' %}
+
+{% block title %}About Us - Vrudhashram Kamalbasant{% endblock %}
+
+{% block content %}
+<style>
+    .about-section {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        margin: 2rem 0;
+    }
+    
+    .about-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    
+    .about-header h1 {
+        color: #2c3e50;
+        margin-bottom: 1rem;
+    }
+    
+    .mission-vision {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        margin: 3rem 0;
+    }
+    
+    .mission, .vision {
+        background: #f8f9fa;
+        padding: 2rem;
+        border-radius: 10px;
+        border-left: 5px solid #3498db;
+    }
+    
+    .mission h3, .vision h3 {
+        color: #2c3e50;
+        margin-bottom: 1rem;
+    }
+    
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+    
+    .service-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+    
+    .service-icon {
+        font-size: 3rem;
+        color: #3498db;
+        margin-bottom: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+        .mission-vision {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="about-header">
+    <h1>About Vrudhashram Kamalbasant</h1>
+    <p>Dedicated to providing compassionate care and comfortable living for our elderly community</p>
+</div>
+
+<div class="about-section">
+    <h2>Our Story</h2>
+    <p>Vrudhashram Kamalbasant was founded with a simple yet profound mission: to create a nurturing environment where elderly individuals can live with dignity, respect, and joy. We believe that our elders deserve the best care possible, surrounded by love and understanding.</p>
+    
+    <p>Our facility combines traditional values with modern amenities to provide a home-like atmosphere where residents can maintain their independence while receiving the support they need.</p>
+</div>
+
+<div class="mission-vision">
+    <div class="mission">
+        <h3>Our Mission</h3>
+        <p>To provide exceptional care and support to elderly individuals, ensuring they live their golden years with dignity, comfort, and happiness. We strive to create a loving community where every resident feels valued and respected.</p>
+    </div>
+    
+    <div class="vision">
+        <h3>Our Vision</h3>
+        <p>To be the leading elder care facility that sets the standard for compassionate care, innovative programs, and community engagement. We envision a world where aging is celebrated and elders are cherished.</p>
+    </div>
+</div>
+
+<div class="about-section">
+    <h2>Our Services</h2>
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">🏥</div>
+            <h3>Medical Care</h3>
+            <p>24/7 medical supervision with qualified healthcare professionals</p>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-icon">🍽️</div>
+            <h3>Nutritious Meals</h3>
+            <p>Healthy, balanced meals prepared according to dietary requirements</p>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-icon">🎨</div>
+            <h3>Recreation Activities</h3>
+            <p>Engaging activities to keep residents active and socially connected</p>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-icon">🛏️</div>
+            <h3>Comfortable Living</h3>
+            <p>Clean, comfortable rooms with all necessary amenities</p>
+        </div>
+    </div>
+</div>
+
+<div class="about-section">
+    <h2>Why Choose Us?</h2>
+    <ul style="list-style: none; padding: 0;">
+        <li style="margin: 1rem 0; padding: 0.5rem; background: #f8f9fa; border-left: 4px solid #27ae60;">✓ Experienced and caring staff</li>
+        <li style="margin: 1rem 0; padding: 0.5rem; background: #f8f9fa; border-left: 4px solid #27ae60;">✓ 24/7 medical care and emergency response</li>
+        <li style="margin: 1rem 0; padding: 0.5rem; background: #f8f9fa; border-left: 4px solid #27ae60;">✓ Nutritious meals and special dietary accommodations</li>
+        <li style="margin: 1rem 0; padding: 0.5rem; background: #f8f9fa; border-left: 4px solid #27ae60;">✓ Regular family visits and communication</li>
+        <li style="margin: 1rem 0; padding: 0.5rem; background: #f8f9fa; border-left: 4px solid #27ae60;">✓ Spiritual and emotional support</li>
+    </ul>
+</div>
+{% endblock %}

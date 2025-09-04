@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        @page {
+            size: 3.375in 2.125in;
+            margin: 0.15in;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: white;
+        }
+        .id-card {
+            width: 3.375in;
+            height: 2.125in;
+            border: 2px solid #2c3e50;
+            border-radius: 8px;
+            padding: 8px;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+        }
+        .header {
+            text-align: center;
+            background-color: #ecf0f1;
+            padding: 4px;
+            margin: -8px -8px 8px -8px;
+            border-bottom: 1px solid #bdc3c7;
+        }
+        .org-name {
+            font-size: 9pt;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0;
+        }
+        .card-title {
+            font-size: 7pt;
+            color: #e74c3c;
+            font-weight: bold;
+            margin: 0;
+        }
+        .content {
+            display: flex;
+            margin-bottom: 8px;
+        }
+        .photo-section {
+            flex: 0 0 1.1in;
+            margin-right: 8px;
+        }
+        .photo {
+            width: 0.9in;
+            height: 1.1in;
+            border: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+            overflow: hidden;
+        }
+        .photo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        .details {
+            flex: 1;
+        }
+        .volunteer-name {
+            font-size: 10pt;
+            font-weight: bold;
+            text-align: center;
+            color: #2c3e50;
+            margin: 0 0 6px 0;
+            text-transform: uppercase;
+        }
+        .detail-row {
+            display: flex;
+            margin-bottom: 3px;
+            font-size: 7pt;
+        }
+        .detail-label {
+            font-weight: bold;
+            width: 0.7in;
+            color: #34495e;
+        }
+        .detail-value {
+            flex: 1;
+            color: #34495e;
+        }
+        .footer {
+            border-top: 1px solid #bdc3c7;
+            padding-top: 6px;
+            text-align: center;
+            font-size: 6pt;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        .watermark {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 5pt;
+            color: #f1f1f1;
+            transform: rotate(-30deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="id-card">
+        <div class="header">
+            <div class="org-name">VRUDHASHRAM KAMALBASANT</div>
+            <div class="card-title">VOLUNTEER ID CARD</div>
+        </div>
+        
+        <div class="content">
+            <div class="photo-section">
+                <div class="photo">
+                    {% if volunteer.profile_photo %}
+                        <img src="{{ volunteer.profile_photo.url }}" alt="{{ volunteer.full_name }}">
+                    {% else %}
+                        Photo Not Available
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="details">
+                <div class="volunteer-name">{{ volunteer.full_name }}</div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">ID:</div>
+                    <div class="detail-value">{{ volunteer.volunteer_id }}</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Phone:</div>
+                    <div class="detail-value">{{ volunteer.phone_number }}</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Status:</div>
+                    <div class="detail-value">{{ volunteer.status|title }}</div>
+                </div>
+                
+                {% if volunteer.approved_at %}
+                <div class="detail-row">
+                    <div class="detail-label">Member Since:</div>
+                    <div class="detail-value">{{ volunteer.approved_at.year }}</div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div>Authorized Signature</div>
+            <div>Valid until further notice</div>
+        </div>
+        
+        <div class="watermark">OFFICIAL DOCUMENT • NOT TRANSFERABLE</div>
+    </div>
+</body>
+</html>
