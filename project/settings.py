@@ -10,7 +10,7 @@ SECRET_KEY = 'django-insecure-your-secret-key-change-this-in-production'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
+ALLOWED_HOSTS = ["127.0.0.1","localhost","13.233.33.92"]
 
 # Application definition
 INSTALLED_APPS = [
@@ -54,12 +54,22 @@ TEMPLATES = [
 WSGI_APPLICATION = 'project.wsgi.application'
 
 # Database
+import os
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv("DB_NAME", "book"),
+        'USER': os.getenv("DB_USER", "appuser"),
+        'PASSWORD': os.getenv("DB_PASSWORD", "apppass"),
+        'HOST': os.getenv("DB_HOST", "mysql"),  
+        'PORT': os.getenv("DB_PORT", "3306"),
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
     }
 }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
