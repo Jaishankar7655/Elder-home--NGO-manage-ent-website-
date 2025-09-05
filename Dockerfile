@@ -1,9 +1,7 @@
 FROM python:3.12-slim
-
 # Environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-
 WORKDIR /app
 
 # Install system dependencies

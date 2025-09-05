@@ -62,7 +62,7 @@ DATABASES = {
         'NAME': os.getenv("DB_NAME", "book"),
         'USER': os.getenv("DB_USER", "appuser"),
         'PASSWORD': os.getenv("DB_PASSWORD", "apppass"),
-        'HOST': os.getenv("DB_HOST", "mysql"),  
+        'HOST': os.getenv("DB_HOST", "127.0.0.1"),  
         'PORT': os.getenv("DB_PORT", "3306"),
         'OPTIONS': {
             'charset': 'utf8mb4',
